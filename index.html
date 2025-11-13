@@ -4,8 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Personal Birthday Wish for NASIM</title>
+    <!-- Open Graph tags for controlled link previews -->
+    <meta property="og:title" content="Happy Birthday NASIM!">
+    <meta property="og:description" content="A special surprise birthday wish. Click to reveal with password!">
+    <meta property="og:image" content="https://via.placeholder.com/800x400/0984e3/ffffff?text=Surprise+Birthday+Wish+for+NASIM">
+    <meta property="og:image:width" content="800">
+    <meta property="og:image:height" content="400">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
     <style>
+        /* Existing styles remain unchanged */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Poppins', sans-serif;
@@ -278,7 +285,7 @@
         
         <!-- Enhanced Hidden Photo Reveal -->
         <div class="reveal-message" id="revealMessage">Surprise! Here's your special photo! 🎁</div>
-        <img id="photoReveal" src="https://i.imgur.com/0qRV2sk.jpg" alt="Surprise Photo">
+        <img id="photoReveal" alt="Surprise Photo">  <!-- Removed src here -->
         
         <div class="footer">Made with 💙 for NASIM</div>
     </div>
@@ -335,8 +342,9 @@
             const message = document.getElementById('revealMessage');
             message.style.display = 'block';
             
-            // Show photo with enhanced animation
+            // Load and show photo with enhanced animation
             const photo = document.getElementById('photoReveal');
+            photo.src = 'https://i.imgur.com/0qRV2sk.jpg';  // Load src dynamically here
             photo.style.display = 'block';
             
             // Add some celebration effects
