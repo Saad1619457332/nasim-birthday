@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Personal Birthday Wish for NASIM</title>
+    <title>A Special Surprise!</title>
     <!-- Open Graph tags for controlled link previews -->
-    <meta property="og:title" content="Happy Birthday NASIM!">
-    <meta property="og:description" content="A special surprise birthday wish. Click to reveal with password!">
-    <meta property="og:image" content="https://via.placeholder.com/800x400/0984e3/ffffff?text=Surprise+Birthday+Wish+for+NASIM">
+    <meta property="og:title" content="A Special Surprise!">
+    <meta property="og:description" content="Enter the password to reveal what's inside!">
+    <meta property="og:image" content="https://via.placeholder.com/800x400/000000/ffffff?text=Unlock+the+Surprise">
     <meta property="og:image:width" content="800">
     <meta property="og:image:height" content="400">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
@@ -45,6 +45,7 @@
             50% { background-position: 100% 50%; } 
         }
         .container {
+            display: none; /* Hide initially */
             max-width: 900px;
             width: 100%;
             text-align: center;
@@ -429,10 +430,10 @@
         </div>
         
         <p id="countdown-text"></p>
-        <button onclick="showPasswordModal()">Eihaney click de moga🐥</button>
+        <button onclick="showPasswordModal()">Reveal Special Photos! 🎁</button>
         
         <!-- Enhanced Hidden Photo Reveal -->
-        <div class="reveal-message" id="revealMessage">Surprise! Here's your special photo! 🎁</div>
+        <div class="reveal-message" id="revealMessage">Surprise! Here are your special photos! 🎁</div>
         <div id="photoGallery">
             <div class="slideshow-container">
                 <!-- Photo slides will be inserted here by JavaScript -->
@@ -488,6 +489,8 @@
             countdownEl.textContent = "";
         }
 
+        let passwordStage = 1; // 1 for initial access, 2 for photo reveal
+
         function showPasswordModal() {
             document.getElementById('passwordModal').style.display = 'block';
             document.getElementById('passwordInput').value = '';
@@ -509,7 +512,12 @@
             const password = document.getElementById('passwordInput').value;
             if (password === 'cumztozze' || password === '19') {
                 document.getElementById('passwordModal').style.display = 'none';
-                revealPhoto();
+                if (passwordStage === 1) {
+                    document.querySelector('.container').style.display = 'block';
+                    passwordStage = 2;
+                } else if (passwordStage === 2) {
+                    revealPhoto();
+                }
             } else {
                 document.getElementById('errorMessage').style.display = 'block';
                 // Shake animation for wrong password
@@ -637,14 +645,9 @@
                 currentSlide = index;
             }
             
-            // Function to get a random slide index (different from current)
-            function getRandomSlideIndex() {
-                let newIndex;
-                do {
-                    newIndex = Math.floor(Math.random() * slides.length);
-                } while (newIndex === currentSlide && slides.length > 1);
-                
-                return newIndex;
+            // Function to get the next slide index in sequence
+            function getNextSlideIndex() {
+                return (currentSlide + 1) % slides.length;
             }
             
             // Show first slide
@@ -652,7 +655,7 @@
             
             // Start the interval for automatic slideshow
             slideshowInterval = setInterval(() => {
-                const nextSlide = getRandomSlideIndex();
+                const nextSlide = getNextSlideIndex();
                 showSlide(nextSlide);
             }, 3000); // 3 second delay between slides
         }
@@ -723,6 +726,12 @@
                 clearInterval(slideshowInterval);
             }
         });
+        
+        // Show modal on page load for first password
+        window.onload = function() {
+            createStars();
+            showPasswordModal();
+        };
     </script>
 </body>
 </html>
